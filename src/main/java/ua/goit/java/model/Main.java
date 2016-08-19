@@ -24,11 +24,13 @@ public class Main {
 //        dishDAO.remove("Pepsi");
 //        dishDAO.findDishByName("Compote");
 //        dishDAO.showAll();
-//          MenuDAO menuDAO = new MenuDAO();
-//          menuDAO.addMenu(4, "Banket");
-//          menuDAO.remove("Banket");
-//          menuDAO.findMenuByName("Child_menu");
-//          menuDAO.showAll();
+//              MenuDAO menuDAO = new MenuDAO();
+//              menuDAO.addMenu(4, "Banket");
+//              menuDAO.remove("Banket");
+//              menuDAO.addDishToMenu("Lunch", "Pie");
+//              menuDAO.removeDishFromMenu("Lunch", "Pie");
+//              menuDAO.findMenuByName("Child_menu");
+//              menuDAO.showAll();
 //        WarehouseDAO warehouseDAO = new WarehouseDAO();
 //        warehouseDAO.add(4, 4, 15, 2);
 //        warehouseDAO.remove(4);

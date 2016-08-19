@@ -53,6 +53,33 @@ public class MenuDAO implements DAOMenu{
     }
 
     @Override
+    public void addDishToMenu(String menu_name, String dish_name) throws SQLException {
+        System.out.println("Creating DataBase Connection...");
+        Connection connection = getConnection();
+        connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        System.out.println("Executing statement");
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO menu_set VALUES ((SELECT menu.id FROM menu WHERE menu_name = ?), (SELECT dishes.id FROM dishes WHERE dish_name = ?))");
+        ps.setString(1, menu_name);
+        ps.setString(2, dish_name);
+        ps.execute();
+        System.out.println("Dish " + dish_name + " was added to menu " + menu_name);
+
+    }
+
+    @Override
+    public void removeDishFromMenu(String menu_name, String dish_name) throws SQLException {
+        System.out.println("Creating DataBase Connection...");
+        Connection connection = getConnection();
+        connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        System.out.println("Executing statement");
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM menu_set where id_menu = (SELECT menu.id FROM menu WHERE menu_name = ?) and id_dish =(SELECT dishes.id FROM dishes WHERE dish_name = ?)");
+        ps.setString(1, menu_name);
+        ps.setString(2, dish_name);
+        ps.execute();
+        System.out.println("Dish " + dish_name + " was removed from menu " + menu_name);
+    }
+
+    @Override
     public Menu findMenuByName(String name) throws SQLException {
         System.out.println("Creating DataBase Connection...");
         Connection connection = getConnection();

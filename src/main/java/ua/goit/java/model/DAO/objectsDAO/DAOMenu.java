@@ -9,8 +9,8 @@ import java.util.List;
 public interface DAOMenu {
     void addMenu(int id, String menu_name) throws ClassNotFoundException, SQLException;
     void remove(String name) throws SQLException;
-    void addDishToMenu (String dish_name, String menu_name);
-
+    void addDishToMenu (String menu_name, String dish_name) throws SQLException;
+    void removeDishFromMenu (String menu_name, String dish_name) throws SQLException;
     Menu findMenuByName(String name) throws SQLException;
     List<Menu> showAll() throws SQLException;
     Connection getConnection() throws SQLException;
