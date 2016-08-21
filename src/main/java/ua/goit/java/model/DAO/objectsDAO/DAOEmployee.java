@@ -15,6 +15,7 @@ public interface DAOEmployee {
     List<Employee> showAll() throws SQLException;
     Connection getConnection() throws SQLException;
 
+    public Employee getById(int id) throws SQLException;
 
 
 

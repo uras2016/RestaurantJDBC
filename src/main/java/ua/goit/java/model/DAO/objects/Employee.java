@@ -1,7 +1,7 @@
 package ua.goit.java.model.DAO.objects;
 
 public class Employee {
-//    private int id;
+    private int id;
     private String second_name;
     private String name;
     private String birthday;
@@ -9,13 +9,13 @@ public class Employee {
     private String position;
     private int salary;
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getSecond_name() {
         return second_name;

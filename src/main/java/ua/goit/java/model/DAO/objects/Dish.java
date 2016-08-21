@@ -1,10 +1,19 @@
 package ua.goit.java.model.DAO.objects;
 
 public class Dish {
+    private int dish_id;
     private String name;
     private double price;
     private double weight;
-    private String measure;
+    private int measure;
+
+    public int getDish_id() {
+        return dish_id;
+    }
+
+    public void setDish_id(int dish_id) {
+        this.dish_id = dish_id;
+    }
 
     public String getName() {
         return name;
@@ -30,11 +39,11 @@ public class Dish {
         this.weight = weight;
     }
 
-    public String getMeasure() {
+    public int getMeasure() {
         return measure;
     }
 
-    public void setMeasure(String measure) {
+    public void setMeasure(int measure) {
         this.measure = measure;
     }
 

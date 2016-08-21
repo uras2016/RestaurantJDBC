@@ -48,7 +48,7 @@ public class DishDAO implements DAODish {
 
         System.out.println("Executing statement");
 
-        PreparedStatement ps = connection.prepareStatement("DELETE FROM dishes WHERE name=?");
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM dishes WHERE dish_name=?");
         ps.setString(1, name);
         ps.execute();
         System.out.println("Dish " + name + " was removed from table");
@@ -60,7 +60,7 @@ public class DishDAO implements DAODish {
         Connection connection = getConnection();
         connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         System.out.println("Executing statement");
-        PreparedStatement ps = connection.prepareStatement("SELECT name, price, weight, measures.measure_name FROM dishes NATURAL JOIN measures WHERE name = ? ");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM dishes INNER JOIN measures ON(dishes.measure_id=measures.measure_id) WHERE dish_name = ? ");
         ps.setString(1, name);
         ResultSet rs = ps.executeQuery();
 
@@ -72,6 +72,26 @@ public class DishDAO implements DAODish {
             throw new RuntimeException("Can't find class " + name);
         }
 
+    }
+
+
+    public Dish getById(int id) throws SQLException {
+
+        Dish dish = new Dish();
+
+        System.out.println("Creating DataBase Connection...");
+        Connection connection = getConnection();
+        connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        System.out.println("Executing statement");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM dishes NATURAL JOIN measures WHERE DISH_ID = ?");
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            dish = createDish(resultSet);
+            return dish;
+        } else {
+            throw new RuntimeException("Cannot find dish with id: " + id);
+        }
     }
 
     @Override
@@ -96,10 +116,11 @@ public class DishDAO implements DAODish {
 
     private Dish createDish(ResultSet rs) throws SQLException {
         Dish dish = new Dish();
-        dish.setName(rs.getString("NAME"));
-        dish.setPrice(rs.getDouble("PRICE"));
-        dish.setWeight(rs.getDouble("WEIGHT"));
-        dish.setMeasure(rs.getString("MEASURE_NAME"));
+        dish.setDish_id(rs.getInt("DISH_ID"));
+        dish.setName(rs.getString("DISH_NAME"));
+        dish.setPrice(rs.getDouble("DISH_PRICE"));
+        dish.setWeight(rs.getDouble("DISH_WEIGHT"));
+        dish.setMeasure(rs.getInt("MEASURE_ID"));
 
         return dish;
     }

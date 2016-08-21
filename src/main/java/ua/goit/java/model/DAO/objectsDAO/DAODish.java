@@ -13,4 +13,6 @@ public interface DAODish  {
     Dish findDishByName(String name) throws SQLException;
     List<Dish> showAll() throws SQLException;
     Connection getConnection() throws SQLException;
+
+    public Dish getById(int id) throws SQLException;
 }

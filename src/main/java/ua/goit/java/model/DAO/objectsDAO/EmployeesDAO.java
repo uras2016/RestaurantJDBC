@@ -74,6 +74,26 @@ public class EmployeesDAO implements DAOEmployee {
 
     }
 
+    public Employee getById(int id) throws SQLException {
+
+        Employee employee = new Employee();
+
+        System.out.println("Creating DataBase Connection...");
+        Connection connection = getConnection();
+        connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        System.out.println("Executing statement");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee NATURAL JOIN positions WHERE EMPLOYEE_ID = ?");
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            employee = createEmployee(resultSet);
+            System.out.println(employee.toString());
+            return employee;
+        } else {
+            throw new RuntimeException("Cannot find employee with id: " + id);
+        }
+    }
+
     public List<Employee> showAll() throws SQLException {
         List<Employee> allEmplyees = new ArrayList<>();
 
@@ -95,7 +115,7 @@ public class EmployeesDAO implements DAOEmployee {
 
     private Employee createEmployee(ResultSet rs) throws SQLException {
         Employee employee = new Employee();
-//        employee.setId(rs.getInt("id"));
+        employee.setId(rs.getInt("employee_id"));
         employee.setSecond_name(rs.getString("SECOND_NAME"));
         employee.setName(rs.getString("NAME"));
         employee.setBirthday(rs.getString("BIRTHDAY"));
